@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
+    /* ─── TOKENS ─────────────────────────────────────────────────────────── */
     :root {
       --gold:#C9A84C;--gold-l:#E8C96A;--gold-pale:rgba(201,168,76,.08);--gold-b:rgba(201,168,76,.22);
       --sky:#38B6FF;--sky-d:#0E90D8;--sky-pale:rgba(56,182,255,.08);--sky-b:rgba(56,182,255,.2);
@@ -16,7 +17,7 @@
       --nav:rgba(255,255,255,.95);
       --sh1:0 2px 12px rgba(14,144,216,.08);
       --sh2:0 6px 30px rgba(14,144,216,.12);
-      --sh3:0 16px 60px rgba(14,144,216,.16);
+      --sh3:0 20px 60px rgba(14,144,216,.18);
       --shg:0 8px 32px rgba(201,168,76,.22);
       --shs:0 8px 32px rgba(56,182,255,.22);
       --t:.3s cubic-bezier(.4,0,.2,1);
@@ -25,7 +26,7 @@
       --bg:#0C0E12;--bg2:#131720;--surf:#181C24;--surf2:#1E2330;
       --br:#252C3A;--th:#F0EDE6;--tb:#A8C4D8;--tm:#505870;
       --nav:rgba(12,14,18,.93);
-      --sh1:0 2px 12px rgba(0,0,0,.4);--sh2:0 6px 30px rgba(0,0,0,.5);--sh3:0 16px 60px rgba(0,0,0,.6);
+      --sh1:0 2px 12px rgba(0,0,0,.4);--sh2:0 6px 30px rgba(0,0,0,.5);--sh3:0 20px 60px rgba(0,0,0,.65);
       --shg:0 8px 32px rgba(201,168,76,.14);--shs:0 8px 32px rgba(56,182,255,.12);
       --gold-pale:rgba(201,168,76,.08);--sky-pale:rgba(56,182,255,.06);
     }
@@ -41,13 +42,15 @@
     ::-webkit-scrollbar-track{background:var(--bg)}
     ::-webkit-scrollbar-thumb{background:linear-gradient(var(--sky),var(--gold));border-radius:99px}
 
+    /* CUSTOM CURSOR */
     #c{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--sky);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:multiply}
     #cr{position:fixed;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--sky);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.55;transition:width .22s,height .22s}
     [data-theme=dark] #c{mix-blend-mode:normal}
 
+    /* GRAIN TEXTURE */
     body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-    /* NAV */
+    /* ─── NAV ─────────────────────────────────────────────────────────────── */
     nav{position:fixed;inset:0 0 auto 0;z-index:200;background:var(--nav);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--br);transition:background var(--t),border-color var(--t)}
     .ni{max-width:1200px;margin:0 auto;padding:0 2.5rem;height:68px;display:flex;align-items:center;justify-content:space-between}
     .logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--th);display:flex;align-items:baseline;gap:.1rem}
@@ -75,32 +78,19 @@
     main{padding-top:68px;position:relative;z-index:1}
     .wrap{max-width:1200px;margin:0 auto;padding:0 2.5rem}
 
+    /* ─── UTILITY ─────────────────────────────────────────────────────────── */
     .lbl{display:inline-flex;align-items:center;gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sky);margin-bottom:.9rem}
     .lbl-line{display:block;width:26px;height:1px;background:linear-gradient(90deg,var(--sky),transparent)}
     .htitle{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,4.5vw,3.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;color:var(--th)}
     .htitle em{font-style:italic;color:var(--sky)}
-    .hsub{font-size:1rem;color:var(--tm);font-weight:300;max-width:600px;line-height:1.8;margin-top:.7rem}
-    .divider{width:56px;height:3px;background:linear-gradient(90deg,var(--sky),var(--gold));border-radius:99px;margin:1.2rem 0}
-
-    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.82rem 2rem;border-radius:9px;font-size:.9rem;font-weight:600;letter-spacing:.03em;border:none;cursor:pointer!important;transition:all var(--t);position:relative;overflow:hidden}
-    .btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.1);opacity:0;transition:opacity var(--t)}
-    .btn:hover::before{opacity:1}
-    .bg{background:linear-gradient(135deg,var(--gold),#B08020);color:#fff;box-shadow:var(--shg)}
-    .bg:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,168,76,.38)}
-    .bs{background:linear-gradient(135deg,var(--sky),var(--sky-d));color:#fff;box-shadow:var(--shs)}
-    .bs:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(56,182,255,.38)}
-    .bo{background:transparent;color:var(--tb);border:1.5px solid var(--br)}
-    .bo:hover{border-color:var(--sky);color:var(--sky);transform:translateY(-2px)}
-
     .tg{display:inline-block;padding:.28rem .78rem;border-radius:5px;font-size:.73rem;font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:.04em}
     .tg-g{background:var(--gold-pale);color:var(--gold);border:1px solid var(--gold-b)}
     .tg-s{background:var(--sky-pale);color:var(--sky);border:1px solid var(--sky-b)}
     .tg-m{background:var(--surf2);color:var(--tm);border:1px solid var(--br)}
-
     .anim-up{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
     .anim-up.in{opacity:1;transform:none}
 
-    /* HERO BANNER */
+    /* ─── HERO BANNER ─────────────────────────────────────────────────────── */
     .phero{padding:6rem 0 4rem;position:relative;overflow:hidden}
     .phero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(56,182,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,.04) 1px,transparent 1px);background-size:64px 64px;z-index:0}
     .blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
@@ -115,17 +105,15 @@
     .pcount-item{display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-family:'JetBrains Mono',monospace;color:var(--tm)}
     .pcount-dot{width:8px;height:8px;border-radius:50%;background:var(--sky);box-shadow:0 0 8px var(--sky)}
 
-    /* FILTER TABS */
+    /* ─── FILTER TABS ─────────────────────────────────────────────────────── */
     .filter-wrap{padding:2rem 0 1rem;position:sticky;top:68px;z-index:100;background:var(--bg);border-bottom:1px solid var(--br);transition:background var(--t)}
     .filter-inner{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
     .ftab{padding:.45rem 1.2rem;border-radius:100px;border:1.5px solid var(--br);font-size:.78rem;font-weight:500;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--tm);background:transparent;cursor:pointer!important;transition:all var(--t)}
     .ftab:hover{border-color:var(--sky-b);color:var(--sky)}
     .ftab.active{background:linear-gradient(135deg,var(--sky),var(--sky-d));color:#fff;border-color:transparent;box-shadow:var(--shs)}
 
-    /* PROJECTS GRID */
+    /* ─── SECTION HEADERS ─────────────────────────────────────────────────── */
     .projects-section{padding:3rem 0 6rem}
-
-    /* CATEGORY LABEL */
     .cat-header{display:flex;align-items:center;gap:1rem;margin:3rem 0 1.5rem}
     .cat-header:first-child{margin-top:0}
     .cat-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--th)}
@@ -133,61 +121,140 @@
     .cat-line{flex:1;height:1px;background:linear-gradient(90deg,var(--br),transparent)}
     .cat-count{font-size:.7rem;font-family:'JetBrains Mono',monospace;color:var(--tm);padding:.25rem .7rem;border-radius:100px;background:var(--surf2);border:1px solid var(--br)}
 
-    /* MAIN PROJECT CARD */
+    /* ─── MAIN PROJECT CARD ───────────────────────────────────────────────── */
     .main-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1.5rem;margin-bottom:2rem}
+
     .pcard{background:var(--surf);border:1px solid var(--br);border-radius:20px;overflow:hidden;transition:all var(--t);position:relative;display:flex;flex-direction:column}
     .pcard:hover{border-color:var(--sky-b);box-shadow:var(--sh3);transform:translateY(-6px)}
 
-    .pcard-hero{height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .pcard-hero::before{content:'';position:absolute;inset:0;background:var(--ph-bg,linear-gradient(135deg,rgba(56,182,255,.15),rgba(201,168,76,.1)));z-index:0}
-    .pcard-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,var(--surf),transparent);z-index:2}
-    .ph-pattern{position:absolute;inset:0;z-index:1;opacity:.35}
-    .ph-icon{position:relative;z-index:3;width:68px;height:68px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:var(--surf);box-shadow:var(--sh2);border:1px solid var(--br)}
-    .ph-icon svg{width:30px;height:30px;stroke:var(--sky);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    /* Screenshot hero — replaces old SVG hero */
+    .pcard-img{position:relative;height:210px;overflow:hidden;background:var(--surf2);flex-shrink:0}
 
-    .pcard-body{padding:1.6rem;flex:1;display:flex;flex-direction:column;gap:.9rem}
+    /* Actual screenshot */
+    .pcard-img img{
+      width:100%;height:100%;
+      object-fit:cover;object-position:top center;
+      display:block;
+      transition:transform .5s cubic-bezier(.4,0,.2,1);
+      will-change:transform;
+    }
+    .pcard:hover .pcard-img img{transform:scale(1.06) translateY(-2%)}
+
+    /* Placeholder shown when no screenshot is set */
+    .pcard-img .ph{
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:.5rem;color:var(--tm);
+      font-size:.8rem;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;
+    }
+    .pcard-img .ph svg{width:32px;height:32px;stroke:var(--tm);fill:none;stroke-width:1.2;opacity:.4}
+    .pcard-img .ph span{opacity:.35}
+
+    /* Subtle bottom gradient so body blends into hero */
+    .pcard-img::after{
+      content:'';position:absolute;bottom:0;left:0;right:0;height:72px;
+      background:linear-gradient(to top,var(--surf) 0%,transparent 100%);
+      z-index:2;pointer-events:none;
+      transition:background var(--t);
+    }
+
+    /* Hover overlay with action buttons */
+    .img-ov{
+      position:absolute;inset:0;
+      background:rgba(10,22,40,.55);
+      display:flex;align-items:center;justify-content:center;gap:.7rem;
+      opacity:0;z-index:3;
+      transition:opacity .25s ease;
+      backdrop-filter:blur(2px);
+    }
+    .pcard:hover .img-ov{opacity:1}
+
+    .ov-btn{
+      display:inline-flex;align-items:center;gap:.45rem;
+      padding:.55rem 1.15rem;border-radius:9px;
+      font-size:.75rem;font-weight:600;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;
+      color:#fff;border:1px solid rgba(255,255,255,.28);
+      background:rgba(255,255,255,.1);
+      backdrop-filter:blur(8px);
+      cursor:pointer!important;
+      transition:background .2s,transform .2s;
+    }
+    .ov-btn:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
+    .ov-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .ov-btn-live{background:rgba(56,182,255,.3);border-color:rgba(56,182,255,.5)}
+    .ov-btn-live:hover{background:rgba(56,182,255,.5)}
+
+    /* Pill badges on image */
+    .img-badges{position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:4}
+    .img-badge{
+      font-size:.62rem;font-family:'JetBrains Mono',monospace;font-weight:600;
+      letter-spacing:.1em;text-transform:uppercase;
+      padding:.25rem .75rem;border-radius:100px;
+      backdrop-filter:blur(8px);
+    }
+    .ib-main{background:rgba(56,182,255,.85);color:#fff}
+    .ib-biz{background:rgba(201,168,76,.9);color:#0a1628}
+    .ib-w3{background:rgba(139,92,246,.85);color:#fff}
+    .ib-live{background:rgba(34,197,94,.85);color:#fff}
+    .ib-edtech{background:rgba(14,165,233,.8);color:#fff}
+
+    /* Card body */
+    .pcard-body{padding:1.5rem 1.6rem;flex:1;display:flex;flex-direction:column;gap:.85rem}
     .pcard-meta{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-    .pcard-badge{font-size:.65rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;font-weight:600}
-    .badge-main{background:linear-gradient(135deg,var(--sky-pale),var(--gold-pale));color:var(--sky);border:1px solid var(--sky-b)}
-    .badge-normal{background:var(--surf2);color:var(--tm);border:1px solid var(--br)}
-    .badge-biz{background:var(--gold-pale);color:var(--gold);border:1px solid var(--gold-b)}
     .pcard-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tm);opacity:.5}
-    .pcard-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--th);line-height:1.25}
-    .pcard-desc{font-size:.88rem;font-weight:300;color:var(--tb);line-height:1.75;flex:1}
+    .pcard-title{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;color:var(--th);line-height:1.25}
+    .pcard-desc{font-size:.87rem;font-weight:300;color:var(--tb);line-height:1.78;flex:1}
     .pcard-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-    .pcard-links{display:flex;gap:.7rem;margin-top:.3rem}
-    .plink{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;border-radius:8px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;transition:all var(--t)}
+    .pcard-links{display:flex;gap:.7rem;margin-top:.3rem;flex-wrap:wrap}
+    .plink{display:inline-flex;align-items:center;gap:.4rem;padding:.52rem 1.1rem;border-radius:8px;font-size:.77rem;font-weight:600;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;transition:all var(--t);cursor:pointer!important}
+    .plink svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .plink-gh{background:var(--surf2);color:var(--tb);border:1.5px solid var(--br)}
     .plink-gh:hover{border-color:var(--sky-b);color:var(--sky);background:var(--sky-pale)}
     .plink-live{background:linear-gradient(135deg,var(--sky),var(--sky-d));color:#fff;border:1.5px solid transparent;box-shadow:var(--shs)}
     .plink-live:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(56,182,255,.4)}
-    .plink svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-    /* SMALL GRID for business */
-    .small-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:2rem}
-    .scard{background:var(--surf);border:1px solid var(--br);border-radius:16px;padding:1.4rem 1.6rem;transition:all var(--t);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.8rem}
-    .scard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--sky),var(--gold));border-radius:3px 0 0 3px;opacity:0;transition:opacity var(--t)}
-    .scard:hover{border-color:var(--sky-b);box-shadow:var(--shs);transform:translateX(5px)}.scard:hover::before{opacity:1}
-    .scard-top{display:flex;align-items:center;gap:.8rem}
-    .scard-ico{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--sky-pale),var(--gold-pale));border:1px solid var(--sky-b);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .scard-ico svg{width:20px;height:20px;stroke:var(--sky);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-    .scard-title{font-size:.98rem;font-weight:700;color:var(--th)}
-    .scard-desc{font-size:.82rem;font-weight:300;color:var(--tm);line-height:1.65}
-    .scard-links{display:flex;gap:.55rem}
-    .slink{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .85rem;border-radius:7px;font-size:.72rem;font-weight:600;font-family:'JetBrains Mono',monospace;transition:all var(--t)}
+    /* ─── SMALL / CLIENT CARD ─────────────────────────────────────────────── */
+    .small-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin-bottom:2rem}
+
+    .scard{background:var(--surf);border:1px solid var(--br);border-radius:16px;overflow:hidden;transition:all var(--t);position:relative;display:flex;flex-direction:column}
+    .scard:hover{border-color:var(--sky-b);box-shadow:var(--shs);transform:translateY(-4px)}
+
+    /* Screenshot strip */
+    .scard-img{position:relative;height:150px;overflow:hidden;background:var(--surf2);flex-shrink:0}
+    .scard-img img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .5s ease}
+    .scard:hover .scard-img img{transform:scale(1.07) translateY(-2%)}
+    .scard-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,var(--surf),transparent);z-index:2;pointer-events:none;transition:background var(--t)}
+    .scard-img .img-ov{opacity:0}
+    .scard:hover .scard-img .img-ov{opacity:1}
+    .scard-img .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--tm);font-size:.72rem;font-family:'JetBrains Mono',monospace}
+    .scard-img .ph svg{width:24px;height:24px;stroke:var(--tm);fill:none;stroke-width:1.2;opacity:.35}
+    .scard-img .ph span{opacity:.3}
+
+    /* Left accent bar */
+    .scard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--sky),var(--gold));border-radius:3px 0 0 3px;opacity:0;transition:opacity var(--t);z-index:5}
+    .scard:hover::before{opacity:1}
+
+    .scard-body{padding:1.15rem 1.4rem;display:flex;flex-direction:column;gap:.65rem}
+    .scard-top{display:flex;align-items:center;gap:.75rem}
+    .scard-ico{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--sky-pale),var(--gold-pale));border:1px solid var(--sky-b);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .scard-ico svg{width:18px;height:18px;stroke:var(--sky);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .scard-title{font-size:.96rem;font-weight:700;color:var(--th)}
+    .scard-desc{font-size:.81rem;font-weight:300;color:var(--tm);line-height:1.65}
+    .scard-links{display:flex;gap:.55rem;flex-wrap:wrap}
+    .slink{display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .9rem;border-radius:7px;font-size:.72rem;font-weight:600;font-family:'JetBrains Mono',monospace;transition:all var(--t);cursor:pointer!important}
+    .slink svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .slink-live{background:linear-gradient(135deg,var(--sky),var(--sky-d));color:#fff;box-shadow:0 4px 14px rgba(56,182,255,.25)}
     .slink-live:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(56,182,255,.4)}
     .slink-gh{background:var(--surf2);color:var(--tb);border:1px solid var(--br)}
     .slink-gh:hover{border-color:var(--sky-b);color:var(--sky)}
-    .slink svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-    /* BACK TO TOP */
+    /* ─── BACK HOME ───────────────────────────────────────────────────────── */
     .back-home{display:flex;justify-content:center;padding:3rem 0 5rem}
     .back-home a{display:inline-flex;align-items:center;gap:.7rem;padding:1rem 2.4rem;border-radius:12px;background:var(--surf);border:1.5px solid var(--br);color:var(--tb);font-weight:600;font-size:.9rem;transition:all var(--t)}
     .back-home a:hover{border-color:var(--sky-b);color:var(--sky);box-shadow:var(--shs);transform:translateY(-3px)}
     .back-home svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-    /* FOOTER */
+    /* ─── FOOTER ──────────────────────────────────────────────────────────── */
     footer{background:var(--th);color:var(--bg);padding:3.5rem 0;position:relative;z-index:1;overflow:hidden}
     footer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 10% 50%,rgba(56,182,255,.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 50%,rgba(201,168,76,.06) 0%,transparent 50%)}
     .footer-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
@@ -199,10 +266,11 @@
     .flink svg{width:17px;height:17px}
     .flink:hover{background:rgba(56,182,255,.15);border-color:rgba(56,182,255,.35);color:var(--sky);transform:translateY(-3px)}
 
-    /* HIDDEN utility */
+    /* HIDDEN */
     .proj-item{transition:opacity .3s,transform .3s}
     .proj-item.hidden{display:none}
 
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
     @media(max-width:768px){
       .nl{display:none}.hbg{display:flex}
       .main-grid{grid-template-columns:1fr}
@@ -210,11 +278,11 @@
       #c,#cr{display:none}
       *{cursor:auto!important}
       .filter-inner{gap:.4rem}
+      .pcard-img{height:180px}
     }
     @media(max-width:480px){
       .wrap{padding:0 1.25rem}.ni{padding:0 1.25rem}
       .mob{padding:1.5rem 1.25rem}
-      .pcard-links{flex-wrap:wrap}
     }
   </style>
 </head>
@@ -222,40 +290,30 @@
   <div id="c"></div>
   <div id="cr"></div>
 
+  <!-- ── INLINE SVG SPRITES ── -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
     <symbol id="ico-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></symbol>
-    <symbol id="ico-ext" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></symbol>
-    <symbol id="ico-back" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
-    <symbol id="ico-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="ico-ext" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></symbol>
+    <symbol id="ico-back" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+    <symbol id="ico-home" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="ico-photo" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
     <symbol id="ico-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
-    <symbol id="ico-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
-    <!-- Project Icons -->
-    <symbol id="ico-ai" viewBox="0 0 24 24"><path d="M12 2a2 2 0 012 2v1a7 7 0 017 7 7 7 0 01-7 7v1a2 2 0 01-4 0v-1a7 7 0 01-7-7 7 7 0 017-7V4a2 2 0 012-2z"/><circle cx="12" cy="12" r="3"/><path d="M12 9v-2M12 17v-2M9 12H7M17 12h-2"/></symbol>
-    <symbol id="ico-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v.01M8 12h8"/></symbol>
-    <symbol id="ico-chain" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></symbol>
-    <symbol id="ico-beaker" viewBox="0 0 24 24"><path d="M9 3h6M9 3v8l-5 9h16l-5-9V3M9 3H7M15 3h2"/><path d="M8 17h8"/></symbol>
-    <symbol id="ico-cart" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></symbol>
-    <symbol id="ico-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></symbol>
-    <symbol id="ico-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
-    <symbol id="ico-receipt" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></symbol>
-    <symbol id="ico-pen" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
-    <symbol id="ico-leaf" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.93L4 20a9 9 0 0014-11L17 8z"/><path d="M3.82 19.93C6.49 18.17 9.45 16.73 12 16c3-1 3-1 6-1"/></symbol>
-    <symbol id="ico-gamepad" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4M8 10v4M15 11h2M15 13h2"/></symbol>
-    <symbol id="ico-mortarboard" viewBox="0 0 24 24"><polygon points="12 2 22 8.5 12 15 2 8.5"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><line x1="22" y1="8.5" x2="22" y2="14"/></symbol>
-    <symbol id="ico-droplet" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></symbol>
-    <symbol id="ico-headset" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></symbol>
-    <symbol id="ico-gem" viewBox="0 0 24 24"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="2 9 12 9 18 3"/><line x1="12" y1="9" x2="12" y2="22"/><line x1="2" y1="9" x2="6" y2="3"/><line x1="22" y1="9" x2="18" y2="3"/></symbol>
-    <symbol id="ico-pencil" viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol>
-    <symbol id="ico-building" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></symbol>
-    <symbol id="ico-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
-    <symbol id="ico-coffee" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
-    <symbol id="ico-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
-    <symbol id="ico-courses" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
-    <symbol id="ico-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></symbol>
-    <symbol id="ico-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="ico-mail" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+    <!-- Small card icons -->
+    <symbol id="ico-mortarboard" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></symbol>
+    <symbol id="ico-star" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></symbol>
+    <symbol id="ico-droplet" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></symbol>
+    <symbol id="ico-headset" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></symbol>
+    <symbol id="ico-gem" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="2 9 12 9 18 3"/><line x1="12" y1="9" x2="12" y2="22"/></symbol>
+    <symbol id="ico-pencil" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol>
+    <symbol id="ico-building" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></symbol>
+    <symbol id="ico-palette" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
+    <symbol id="ico-coffee" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></symbol>
+    <symbol id="ico-play" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
+    <symbol id="ico-courses" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
   </svg>
 
-  <!-- NAV -->
+  <!-- ── NAV ── -->
   <nav>
     <div class="ni">
       <a href="index.html" class="logo">Harshit<span class="g">.</span><span class="s">Singh</span></a>
@@ -286,7 +344,8 @@
   </div>
 
   <main>
-    <!-- HERO -->
+
+    <!-- ── HERO ── -->
     <div class="phero">
       <div class="blob b1"></div>
       <div class="blob b2"></div>
@@ -296,19 +355,23 @@
             <svg viewBox="0 0 24 24"><use href="#ico-back"/></svg>
             Back to Home
           </a>
-          <div class="lbl" style="justify-content:center"><span class="lbl-line"></span>Portfolio · All Projects<span class="lbl-line" style="transform:scaleX(-1)"></span></div>
+          <div class="lbl" style="justify-content:center">
+            <span class="lbl-line"></span>Portfolio · All Projects<span class="lbl-line" style="transform:scaleX(-1)"></span>
+          </div>
           <h1 class="htitle">Things I've <em>Built</em></h1>
-          <p class="hsub" style="text-align:center;margin:0 auto">22 projects across AI, Web3, MERN stack, and client websites — each one crafted with purpose and production quality.</p>
+          <p style="font-size:1rem;color:var(--tm);font-weight:300;max-width:600px;line-height:1.8;text-align:center;margin:0 auto">
+            22 projects across AI, Web3, MERN stack, and client websites — each one crafted with purpose and production quality.
+          </p>
           <div class="pcount-row">
             <div class="pcount-item"><div class="pcount-dot" style="background:var(--sky)"></div>5 Main Projects</div>
-            <div class="pcount-item"><div class="pcount-dot" style="background:var(--gold)"></div>6 Dev Projects</div>
+            <div class="pcount-item"><div class="pcount-dot" style="background:var(--gold);box-shadow:0 0 8px var(--gold)"></div>6 Dev Projects</div>
             <div class="pcount-item"><div class="pcount-dot" style="background:#4ADE80;box-shadow:0 0 8px #4ADE80"></div>11 Client / Business</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- FILTER -->
+    <!-- ── FILTER TABS ── -->
     <div class="filter-wrap">
       <div class="wrap">
         <div class="filter-inner">
@@ -320,11 +383,11 @@
       </div>
     </div>
 
-    <!-- PROJECTS -->
+    <!-- ── PROJECTS ── -->
     <div class="projects-section">
       <div class="wrap">
 
-        <!-- ───── MAIN PROJECTS ───── -->
+        <!-- ════════════ MAIN PROJECTS ════════════ -->
         <div class="cat-section proj-item" data-cat="main">
           <div class="cat-header">
             <div class="cat-title"><em>Main</em> Projects</div>
@@ -333,32 +396,38 @@
           </div>
           <div class="main-grid">
 
-            <!-- AI Resume Optimizer -->
+            <!-- #01 AI Resume Optimizer -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(56,182,255,.18),rgba(14,144,216,.12))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="320" cy="30" r="90" fill="rgba(56,182,255,.07)"/>
-                  <circle cx="80" cy="150" r="60" fill="rgba(201,168,76,.06)"/>
-                  <rect x="60" y="40" width="280" height="4" rx="2" fill="rgba(56,182,255,.12)"/>
-                  <rect x="60" y="56" width="200" height="3" rx="1.5" fill="rgba(56,182,255,.08)"/>
-                  <rect x="60" y="70" width="240" height="3" rx="1.5" fill="rgba(56,182,255,.08)"/>
-                  <rect x="60" y="84" width="160" height="3" rx="1.5" fill="rgba(56,182,255,.06)"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-ai"/></svg></div>
+              <div class="pcard-img">
+                 
+                     <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                
+                
+                <div class="img-badges">
+                  <span class="img-badge ib-main">Main Project</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://github.com/harshitsingh205/Ai-resume-optimizer" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-main">Main Project</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React.js</span>
+                    <span class="tg tg-g">Node.js</span>
+                    <span class="tg tg-m">NLP API</span>
+                  </div>
                   <span class="pcard-num">#01</span>
                 </div>
                 <div class="pcard-title">AI Resume Optimizer</div>
-                <div class="pcard-desc">NLP-powered tool that scores and enhances resumes against job descriptions. Built with a React dashboard, Node.js API layer, and integrated third-party AI scoring services. Features real-time feedback, keyword gap analysis, and optimized rendering for fast UX.</div>
+                <div class="pcard-desc">NLP-powered tool that scores and enhances resumes against job descriptions. Features real-time feedback, keyword gap analysis, and a React dashboard backed by a Node.js API layer.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">React.js</span>
-                  <span class="tg tg-g">Node.js</span>
-                  <span class="tg tg-g">Express</span>
-                  <span class="tg tg-m">NLP API</span>
                   <span class="tg tg-s">MongoDB</span>
+                  <span class="tg tg-g">Express</span>
                 </div>
                 <div class="pcard-links">
                   <a href="https://github.com/harshitsingh205/Ai-resume-optimizer" target="_blank" rel="noopener" class="plink plink-gh">
@@ -368,28 +437,34 @@
               </div>
             </div>
 
-            <!-- Job Navigation Portal -->
+            <!-- #02 Job Navigation Portal -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(201,168,76,.15),rgba(56,182,255,.1))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <circle cx="350" cy="20" r="80" fill="rgba(201,168,76,.07)"/>
-                  <rect x="50" y="50" width="130" height="80" rx="10" fill="rgba(56,182,255,.07)" stroke="rgba(56,182,255,.12)" stroke-width="1"/>
-                  <rect x="200" y="50" width="130" height="80" rx="10" fill="rgba(201,168,76,.07)" stroke="rgba(201,168,76,.12)" stroke-width="1"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-briefcase"/></svg></div>
+              <div class="pcard-img">
+                <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges">
+                  <span class="img-badge ib-main">Main Project</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://github.com/harshitsingh205/Job-navigation" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-main">Main Project</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React.js</span>
+                    <span class="tg tg-g">Node.js</span>
+                    <span class="tg tg-m">JWT Auth</span>
+                  </div>
                   <span class="pcard-num">#02</span>
                 </div>
                 <div class="pcard-title">Job Navigation Portal</div>
-                <div class="pcard-desc">Full-stack job board with advanced filtering, real-time listings, JWT-authenticated user profiles, and employer dashboards. Engineered at Infotact Solutions with an Agile team of 6. MERN stack with optimized search and pagination.</div>
+                <div class="pcard-desc">Full-stack job board with advanced filtering, real-time listings, JWT-authenticated profiles, and employer dashboards. Built at Infotact Solutions with an Agile team of 6.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">React.js</span>
-                  <span class="tg tg-g">Node.js</span>
                   <span class="tg tg-g">MongoDB</span>
-                  <span class="tg tg-m">JWT Auth</span>
                   <span class="tg tg-s">Redux</span>
                 </div>
                 <div class="pcard-links">
@@ -400,27 +475,34 @@
               </div>
             </div>
 
-            <!-- SpellChain Wallet -->
+            <!-- #03 SpellChain -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(201,168,76,.2),rgba(56,182,255,.08))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <polygon points="200,20 330,90 270,160 130,160 70,90" fill="none" stroke="rgba(201,168,76,.15)" stroke-width="1.5"/>
-                  <polygon points="200,45 305,95 260,150 140,150 95,95" fill="none" stroke="rgba(201,168,76,.08)" stroke-width="1"/>
-                  <circle cx="200" cy="90" r="28" fill="rgba(201,168,76,.12)" stroke="rgba(201,168,76,.2)" stroke-width="1.5"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-chain"/></svg></div>
+              <div class="pcard-img">
+                <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges">
+                  <span class="img-badge ib-main">Main Project</span>
+                  <span class="img-badge ib-w3">Web3</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://github.com/harshitsingh205/Crypto-wallet" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-main">Main Project · Web3</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-g">Ethereum</span>
+                    <span class="tg tg-g">Solana</span>
+                    <span class="tg tg-s">Ethers.js</span>
+                  </div>
                   <span class="pcard-num">#03</span>
                 </div>
                 <div class="pcard-title">SpellChain — Crypto Wallet</div>
-                <div class="pcard-desc">Multi-chain cryptocurrency wallet supporting Ethereum and Solana. Features wallet creation, transaction history, token balances, and DApp browser integration. Built with Ethers.js, Web3.js, and React — with secure key management and real-time balance updates.</div>
+                <div class="pcard-desc">Multi-chain cryptocurrency wallet supporting Ethereum and Solana. Features wallet creation, transaction history, token balances, DApp browser, and secure key management.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-g">Ethereum</span>
-                  <span class="tg tg-g">Solana</span>
-                  <span class="tg tg-s">Ethers.js</span>
                   <span class="tg tg-s">Web3.js</span>
                   <span class="tg tg-m">React</span>
                 </div>
@@ -432,28 +514,35 @@
               </div>
             </div>
 
-            <!-- Virtual Lab -->
+            <!-- #04 Virtual Lab -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(56,182,255,.12),rgba(74,222,128,.1))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <circle cx="100" cy="90" r="55" fill="none" stroke="rgba(56,182,255,.12)" stroke-width="1.5"/>
-                  <circle cx="100" cy="90" r="35" fill="rgba(56,182,255,.07)"/>
-                  <path d="M220 50 L280 90 L220 130" fill="none" stroke="rgba(74,222,128,.15)" stroke-width="2"/>
-                  <circle cx="320" cy="90" r="40" fill="none" stroke="rgba(74,222,128,.12)" stroke-width="1.5" stroke-dasharray="6 4"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-beaker"/></svg></div>
+              <div class="pcard-img">
+               <img src="Screenshot 2026-06-06 234351.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges">
+                  <span class="img-badge ib-main">Main Project</span>
+                  <span class="img-badge ib-edtech">EdTech</span>
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://virtuallabb.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-main">Main Project · EdTech</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">JavaScript</span>
+                    <span class="tg tg-s">Canvas API</span>
+                    <span class="tg tg-m">HTML5</span>
+                  </div>
                   <span class="pcard-num">#04</span>
                 </div>
                 <div class="pcard-title">Virtual Lab — Chemistry & Physics</div>
-                <div class="pcard-desc">Interactive educational platform with simulated chemistry and physics experiments. Students perform virtual titrations, circuit building, projectile simulations, and molecular model visualizations — making lab learning accessible without physical equipment.</div>
+                <div class="pcard-desc">Interactive educational platform with simulated chemistry and physics experiments — virtual titrations, circuit building, projectile simulations, and molecular model visualizations.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">JavaScript</span>
-                  <span class="tg tg-s">Canvas API</span>
-                  <span class="tg tg-m">HTML5</span>
                   <span class="tg tg-g">CSS3</span>
                 </div>
                 <div class="pcard-links">
@@ -464,28 +553,34 @@
               </div>
             </div>
 
-            <!-- E-Commerce -->
+            <!-- #05 Phaton E-Commerce -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(201,168,76,.14),rgba(56,182,255,.08))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <rect x="50" y="40" width="80" height="100" rx="8" fill="rgba(201,168,76,.08)" stroke="rgba(201,168,76,.15)" stroke-width="1"/>
-                  <rect x="160" y="40" width="80" height="100" rx="8" fill="rgba(56,182,255,.06)" stroke="rgba(56,182,255,.12)" stroke-width="1"/>
-                  <rect x="270" y="40" width="80" height="100" rx="8" fill="rgba(201,168,76,.07)" stroke="rgba(201,168,76,.12)" stroke-width="1"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-cart"/></svg></div>
+              <div class="pcard-img">
+                <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges">
+                  <span class="img-badge ib-main">Main Project</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://github.com/notiznozit/phaton" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-main">Main Project · E-Commerce</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React.js</span>
+                    <span class="tg tg-g">Node.js</span>
+                    <span class="tg tg-m">Payments</span>
+                  </div>
                   <span class="pcard-num">#05</span>
                 </div>
                 <div class="pcard-title">Phaton — E-Commerce Website</div>
-                <div class="pcard-desc">Full-featured e-commerce platform with product catalog, cart management, order tracking, and secure payment integration. Responsive design with smooth UX, admin dashboard, and inventory management. Deployed and production-ready.</div>
+                <div class="pcard-desc">Full-featured e-commerce platform with product catalog, cart management, order tracking, secure payment integration, admin dashboard, and inventory management. Production-ready and deployed.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">React.js</span>
-                  <span class="tg tg-g">Node.js</span>
                   <span class="tg tg-g">MongoDB</span>
-                  <span class="tg tg-m">Payments</span>
                 </div>
                 <div class="pcard-links">
                   <a href="https://github.com/notiznozit/phaton" target="_blank" rel="noopener" class="plink plink-gh">
@@ -498,7 +593,7 @@
           </div>
         </div>
 
-        <!-- ───── NORMAL / DEV PROJECTS ───── -->
+        <!-- ════════════ DEV PROJECTS ════════════ -->
         <div class="cat-section proj-item" data-cat="normal">
           <div class="cat-header">
             <div class="cat-title">Dev <em>Projects</em></div>
@@ -507,29 +602,35 @@
           </div>
           <div class="main-grid">
 
-            <!-- Bibliotheca -->
+            <!-- #06 Bibliotheca -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(56,182,255,.1),rgba(201,168,76,.08))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <rect x="40" y="35" width="20" height="110" rx="3" fill="rgba(56,182,255,.2)"/>
-                  <rect x="68" y="50" width="20" height="95" rx="3" fill="rgba(201,168,76,.18)"/>
-                  <rect x="96" y="42" width="20" height="103" rx="3" fill="rgba(56,182,255,.15)"/>
-                  <rect x="124" y="58" width="20" height="87" rx="3" fill="rgba(201,168,76,.14)"/>
-                  <rect x="152" y="35" width="20" height="110" rx="3" fill="rgba(56,182,255,.12)"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-book"/></svg></div>
+              <div class="pcard-img">
+                
+                  <img src="Screenshot 2026-06-06 234416.png"
+                       alt="Bibliotheca library management system"
+                       loading="lazy" />
+                
+                <div class="img-badges">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://library-managment-dqjo.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-normal">Dev Project</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React</span>
+                    <span class="tg tg-g">Node.js</span>
+                    <span class="tg tg-g">MongoDB</span>
+                  </div>
                   <span class="pcard-num">#06</span>
                 </div>
                 <div class="pcard-title">Bibliotheca — Library Management</div>
-                <div class="pcard-desc">Full-stack library management system with book catalog, member management, issue/return tracking, and fine calculation. Clean admin interface with search, filters, and real-time availability status.</div>
+                <div class="pcard-desc">Full-stack library management system with book catalog, member management, issue/return tracking, and fine calculation. Clean admin interface with search, filters, and real-time availability.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">React</span>
-                  <span class="tg tg-g">Node.js</span>
-                  <span class="tg tg-g">MongoDB</span>
                   <span class="tg tg-m">Vercel</span>
                 </div>
                 <div class="pcard-links">
@@ -540,30 +641,30 @@
               </div>
             </div>
 
-            <!-- ProspectMiner -->
+            <!-- #07 ProspectMiner -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(201,168,76,.12),rgba(56,182,255,.08))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <circle cx="200" cy="90" r="70" fill="none" stroke="rgba(201,168,76,.1)" stroke-width="1" stroke-dasharray="8 5"/>
-                  <circle cx="200" cy="90" r="40" fill="rgba(201,168,76,.07)"/>
-                  <line x1="200" y1="20" x2="200" y2="60" stroke="rgba(201,168,76,.2)" stroke-width="1.5"/>
-                  <line x1="270" y1="55" x2="240" y2="72" stroke="rgba(56,182,255,.15)" stroke-width="1.5"/>
-                  <line x1="270" y1="125" x2="240" y2="108" stroke="rgba(56,182,255,.15)" stroke-width="1.5"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-target"/></svg></div>
+              <div class="pcard-img">
+                 <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+               
+                <div class="img-ov">
+                  <a href="https://github.com/harshitsingh205/prospectminer" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-normal">Dev Project · Lead Gen</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">JavaScript</span>
+                    <span class="tg tg-g">Node.js</span>
+                    <span class="tg tg-m">APIs</span>
+                  </div>
                   <span class="pcard-num">#07</span>
                 </div>
                 <div class="pcard-title">ProspectMiner</div>
-                <div class="pcard-desc">Lead generation and prospect discovery tool that helps sales teams find and qualify potential clients. Features data scraping utilities, prospect scoring, contact enrichment, and export capabilities for CRM workflows.</div>
-                <div class="pcard-tags">
-                  <span class="tg tg-s">JavaScript</span>
-                  <span class="tg tg-g">Node.js</span>
-                  <span class="tg tg-m">APIs</span>
-                </div>
+                <div class="pcard-desc">Lead generation and prospect discovery tool for sales teams. Features data scraping utilities, prospect scoring, contact enrichment, and export capabilities for CRM workflows.</div>
                 <div class="pcard-links">
                   <a href="https://github.com/harshitsingh205/prospectminer" target="_blank" rel="noopener" class="plink plink-gh">
                     <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> GitHub
@@ -572,31 +673,32 @@
               </div>
             </div>
 
-            <!-- Splitting - Expense Calculator -->
+            <!-- #08 Splitting -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(56,182,255,.1),rgba(74,222,128,.08))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <rect x="50" y="120" width="40" height="40" rx="4" fill="rgba(56,182,255,.15)"/>
-                  <rect x="110" y="90" width="40" height="70" rx="4" fill="rgba(201,168,76,.15)"/>
-                  <rect x="170" y="60" width="40" height="100" rx="4" fill="rgba(56,182,255,.12)"/>
-                  <rect x="230" y="75" width="40" height="85" rx="4" fill="rgba(74,222,128,.12)"/>
-                  <rect x="290" y="45" width="40" height="115" rx="4" fill="rgba(201,168,76,.12)"/>
-                  <polyline points="70,118 130,88 190,58 250,73 310,43" fill="none" stroke="rgba(56,182,255,.3)" stroke-width="1.5"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-receipt"/></svg></div>
+              <div class="pcard-img">
+                <img src="Screenshot 2026-06-06 234451.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://lavh.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-normal">Dev Project · Finance</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React</span>
+                    <span class="tg tg-s">Tailwind</span>
+                    <span class="tg tg-m">Vercel</span>
+                  </div>
                   <span class="pcard-num">#08</span>
                 </div>
                 <div class="pcard-title">Splitting — Expense Calculator</div>
-                <div class="pcard-desc">Group expense splitter that calculates who owes whom after shared expenses. Add members, log expenses, assign payers, and get a smart settlement summary to minimize the number of transactions. Clean, mobile-friendly UI.</div>
-                <div class="pcard-tags">
-                  <span class="tg tg-s">React</span>
-                  <span class="tg tg-s">Tailwind</span>
-                  <span class="tg tg-m">Vercel</span>
-                </div>
+                <div class="pcard-desc">Group expense splitter that calculates who owes whom. Add members, log expenses, assign payers, and get a smart settlement summary that minimizes total transactions.</div>
                 <div class="pcard-links">
                   <a href="https://lavh.vercel.app/" target="_blank" rel="noopener" class="plink plink-live">
                     <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live Demo
@@ -605,30 +707,31 @@
               </div>
             </div>
 
-            <!-- Blog App -->
+            <!-- #09 Bloging -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(201,168,76,.12),rgba(56,182,255,.08))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <rect x="50" y="30" width="300" height="20" rx="4" fill="rgba(201,168,76,.1)"/>
-                  <rect x="50" y="62" width="220" height="12" rx="3" fill="rgba(56,182,255,.08)"/>
-                  <rect x="50" y="82" width="260" height="10" rx="3" fill="rgba(56,182,255,.06)"/>
-                  <rect x="50" y="100" width="200" height="10" rx="3" fill="rgba(56,182,255,.06)"/>
-                  <rect x="50" y="130" width="90" height="28" rx="6" fill="rgba(201,168,76,.15)" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-pen"/></svg></div>
+              <div class="pcard-img">
+                <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-ov">
+                  <a href="https://github.com/harshitsingh205/Blog_App" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-normal">Dev Project · CMS</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React</span>
+                    <span class="tg tg-g">Node.js</span>
+                    <span class="tg tg-m">JWT</span>
+                  </div>
                   <span class="pcard-num">#09</span>
                 </div>
                 <div class="pcard-title">Bloging — Blog App</div>
-                <div class="pcard-desc">Full-featured blogging platform with rich text editor, user authentication, post categories, comment system, and author profiles. Supports markdown, image uploads, and SEO-friendly URLs. Built on the MERN stack with clean REST APIs.</div>
+                <div class="pcard-desc">Full-featured blogging platform with rich text editor, user authentication, post categories, comment system, and author profiles. Supports markdown, image uploads, and SEO-friendly URLs.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">React</span>
-                  <span class="tg tg-g">Node.js</span>
                   <span class="tg tg-g">MongoDB</span>
-                  <span class="tg tg-m">JWT</span>
                 </div>
                 <div class="pcard-links">
                   <a href="https://github.com/harshitsingh205/Blog_App" target="_blank" rel="noopener" class="plink plink-gh">
@@ -638,28 +741,31 @@
               </div>
             </div>
 
-            <!-- AI Smart Recycling Guide -->
+            <!-- #10 AI Recycling Guide -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(74,222,128,.12),rgba(56,182,255,.1))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <path d="M200 30 C240 30 270 60 270 100 C270 140 240 160 200 160 C160 160 130 140 130 100 C130 60 160 30 200 30Z" fill="none" stroke="rgba(74,222,128,.15)" stroke-width="1.5"/>
-                  <path d="M180 70 L220 70 L210 100 L220 130 L180 130 L190 100 Z" fill="rgba(74,222,128,.1)"/>
-                  <circle cx="200" cy="100" r="18" fill="rgba(56,182,255,.12)" stroke="rgba(56,182,255,.2)" stroke-width="1"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-leaf"/></svg></div>
+              <div class="pcard-img">
+                <img src="github_PNG23.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-ov">
+                  <a href="https://github.com/harshitsingh205/AIpowered-smartrecyleyingguide" target="_blank" rel="noopener" class="ov-btn">
+                    <svg viewBox="0 0 24 24"><use href="#ico-github"/></svg> Code
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-normal">Dev Project · AI · Green Tech</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">React</span>
+                    <span class="tg tg-g">AI API</span>
+                    <span class="tg tg-m">Image Recognition</span>
+                  </div>
                   <span class="pcard-num">#10</span>
                 </div>
                 <div class="pcard-title">AI Smart Recycling Guide</div>
-                <div class="pcard-desc">AI-powered application that identifies recyclable materials from images and provides disposal guidance. Uses image recognition APIs to classify waste types and suggests the nearest recycling facilities. Promotes sustainable habits through intelligent prompting.</div>
+                <div class="pcard-desc">AI-powered app that identifies recyclable materials from images and provides disposal guidance. Classifies waste types and suggests nearest recycling facilities to promote sustainable habits.</div>
                 <div class="pcard-tags">
-                  <span class="tg tg-s">React</span>
-                  <span class="tg tg-g">AI API</span>
                   <span class="tg tg-s">Node.js</span>
-                  <span class="tg tg-m">Image Recognition</span>
                 </div>
                 <div class="pcard-links">
                   <a href="https://github.com/harshitsingh205/AIpowered-smartrecyleyingguide" target="_blank" rel="noopener" class="plink plink-gh">
@@ -669,32 +775,32 @@
               </div>
             </div>
 
-            <!-- Games -->
+            <!-- #11 Snake & Sudoku -->
             <div class="pcard anim-up">
-              <div class="pcard-hero" style="--ph-bg:linear-gradient(135deg,rgba(56,182,255,.1),rgba(201,168,76,.12))">
-                <svg class="ph-pattern" viewBox="0 0 400 180" preserveAspectRatio="none" fill="none">
-                  <rect x="60" y="50" width="120" height="80" rx="8" fill="none" stroke="rgba(56,182,255,.15)" stroke-width="1.5"/>
-                  <rect x="80" y="70" width="20" height="20" rx="3" fill="rgba(56,182,255,.2)"/>
-                  <rect x="140" y="70" width="20" height="20" rx="3" fill="rgba(56,182,255,.1)"/>
-                  <circle cx="290" cy="90" r="50" fill="none" stroke="rgba(201,168,76,.15)" stroke-width="1.5"/>
-                  <line x1="270" y1="70" x2="290" y2="90" stroke="rgba(201,168,76,.2)" stroke-width="1.5"/>
-                  <line x1="290" y1="90" x2="310" y2="90" stroke="rgba(201,168,76,.2)" stroke-width="1.5"/>
-                </svg>
-                <div class="ph-icon"><svg viewBox="0 0 24 24"><use href="#ico-gamepad"/></svg></div>
+              <div class="pcard-img">
+                 <img src="Screenshot 2026-06-06 234517.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://anukalp-gamejone.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Play Now
+                  </a>
+                </div>
               </div>
               <div class="pcard-body">
                 <div class="pcard-meta">
-                  <span class="pcard-badge badge-normal">Dev Project · Games</span>
+                  <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                    <span class="tg tg-s">JavaScript</span>
+                    <span class="tg tg-m">Canvas API</span>
+                    <span class="tg tg-g">Netlify</span>
+                  </div>
                   <span class="pcard-num">#11</span>
                 </div>
                 <div class="pcard-title">Snake & Sudoku Games</div>
-                <div class="pcard-desc">Two classic browser games — a smooth Snake game with progressive difficulty and high score tracking, alongside a fully-featured Sudoku puzzle generator with multiple difficulty levels, hint system, and timer. Pure JavaScript with no dependencies.</div>
-                <div class="pcard-tags">
-                  <span class="tg tg-s">JavaScript</span>
-                  <span class="tg tg-m">Canvas API</span>
-                  <span class="tg tg-s">HTML5</span>
-                  <span class="tg tg-g">Netlify</span>
-                </div>
+                <div class="pcard-desc">Two classic browser games — a smooth Snake game with progressive difficulty and high score tracking, plus a Sudoku puzzle generator with multiple difficulty levels, hint system, and timer.</div>
                 <div class="pcard-links">
                   <a href="https://anukalp-gamejone.netlify.app/" target="_blank" rel="noopener" class="plink plink-live">
                     <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Play Now
@@ -706,7 +812,7 @@
           </div>
         </div>
 
-        <!-- ───── BUSINESS / CLIENT PROJECTS ───── -->
+        <!-- ════════════ BUSINESS / CLIENT ════════════ -->
         <div class="cat-section proj-item" data-cat="biz">
           <div class="cat-header">
             <div class="cat-title">Business & <em>Client</em> Work</div>
@@ -715,187 +821,378 @@
           </div>
           <div class="small-grid">
 
+            <!-- College Hub -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-mortarboard"/></svg></div>
-                <div>
-                  <div class="scard-title">College Hub</div>
-                  <span class="tg tg-g" style="font-size:.65rem">EdTech · Portal</span>
+              <div class="scard-img">
+                 <img src="Screenshot 2026-06-06 234631.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://collegehubb.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Comprehensive college information portal connecting students with institutions. Features course listings, admission guides, campus reviews, and comparison tools for prospective students.</div>
-              <div class="scard-links">
-                <a href="https://collegehubb.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-mortarboard"/></svg></div>
+                  <div>
+                    <div class="scard-title">College Hub</div>
+                    <span class="tg tg-g" style="font-size:.65rem">EdTech · Portal</span>
+                  </div>
+                </div>
+                <div class="scard-desc">College information portal connecting students with institutions — course listings, admission guides, campus reviews, and comparison tools.</div>
+                <div class="scard-links">
+                  <a href="https://collegehubb.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- HopeScholar -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-star"/></svg></div>
-                <div>
-                  <div class="scard-title">HopeScholar</div>
-                  <span class="tg tg-s" style="font-size:.65rem">Education · Scholarships</span>
+              <div class="scard-img">
+                  <img src="Screenshot 2026-06-06 234646.png"
+                            alt="AI Resume Optimizer — dashboard view"
+                            loading="lazy" />
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://hopescholar.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Scholarship discovery and application platform helping students find financial aid opportunities. Clean interface with eligibility filters, deadline tracking, and application management.</div>
-              <div class="scard-links">
-                <a href="https://hopescholar.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-star"/></svg></div>
+                  <div>
+                    <div class="scard-title">HopeScholar</div>
+                    <span class="tg tg-s" style="font-size:.65rem">Education · Scholarships</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Scholarship discovery and application platform — eligibility filters, deadline tracking, and application management for students.</div>
+                <div class="scard-links">
+                  <a href="https://hopescholar.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Aqua Namaste -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-droplet"/></svg></div>
-                <div>
-                  <div class="scard-title">Aqua Namaste</div>
-                  <span class="tg tg-g" style="font-size:.65rem">Business · Wellness</span>
+              <div class="scard-img">
+                 <img src="Screenshot 2026-06-06 234702.png"
+                          alt="AI Resume Optimizer — dashboard view"
+                          loading="lazy" />
+
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://aquanamaste.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Professional website for a water wellness and hydration business. Features product catalog, service pages, booking system, and a clean brand-forward design with smooth animations.</div>
-              <div class="scard-links">
-                <a href="https://aquanamaste.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-droplet"/></svg></div>
+                  <div>
+                    <div class="scard-title">Aqua Namaste</div>
+                    <span class="tg tg-g" style="font-size:.65rem">Business · Wellness</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Water wellness business website with product catalog, service pages, booking system, and brand-forward design with smooth animations.</div>
+                <div class="scard-links">
+                  <a href="https://aquanamaste.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- ChatBot -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-headset"/></svg></div>
-                <div>
-                  <div class="scard-title">ChatBot</div>
-                  <span class="tg tg-s" style="font-size:.65rem">AI · Customer Support</span>
+              <div class="scard-img">
+                  <img src="Screenshot 2026-06-06 234739.png"
+                            alt="AI Resume Optimizer — dashboard view"
+                            loading="lazy" />
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://chatbot-amber-xi-29.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">AI-powered conversational chatbot for customer support automation. Handles FAQs, collects user information, routes complex queries, and provides instant responses — deployed as an embeddable widget.</div>
-              <div class="scard-links">
-                <a href="https://chatbot-amber-xi-29.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-headset"/></svg></div>
+                  <div>
+                    <div class="scard-title">ChatBot</div>
+                    <span class="tg tg-s" style="font-size:.65rem">AI · Customer Support</span>
+                  </div>
+                </div>
+                <div class="scard-desc">AI-powered conversational chatbot for customer support — handles FAQs, collects user info, routes complex queries, deployed as an embeddable widget.</div>
+                <div class="scard-links">
+                  <a href="https://chatbot-amber-xi-29.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Variety Junction -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-gem"/></svg></div>
-                <div>
-                  <div class="scard-title">Variety Junction</div>
-                  <span class="tg tg-g" style="font-size:.65rem">E-Commerce · Jewellery</span>
+              <div class="scard-img">
+               
+                  <img src="Screenshot 2026-06-06 234750.png"
+                       alt="Variety Junction jewellery store"
+                       loading="lazy" />
+                
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://jwellery-alpha.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Elegant jewellery e-commerce website with product gallery, category filters, wishlist, and cart. Designed with a luxury aesthetic — high-res imagery, smooth hover effects, and mobile-optimized checkout flow.</div>
-              <div class="scard-links">
-                <a href="https://jwellery-alpha.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-gem"/></svg></div>
+                  <div>
+                    <div class="scard-title">Variety Junction</div>
+                    <span class="tg tg-g" style="font-size:.65rem">E-Commerce · Jewellery</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Elegant jewellery e-commerce site — product gallery, category filters, wishlist, cart, and luxury aesthetic with mobile-optimized checkout.</div>
+                <div class="scard-links">
+                  <a href="https://jwellery-alpha.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Stationary Studio -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-pencil"/></svg></div>
-                <div>
-                  <div class="scard-title">Stationary Studio</div>
-                  <span class="tg tg-s" style="font-size:.65rem">Business · Retail</span>
+              <div class="scard-img">
+              
+                  <img src="Screenshot 2026-06-06 234809.png"
+                       alt="Stationary Studio retail site"
+                       loading="lazy" />
+                
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://stationarystdio.vercel.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Business website for a stationery and art supplies store. Product showcase, online ordering, category navigation, and a creative, brand-consistent design tailored for a retail audience.</div>
-              <div class="scard-links">
-                <a href="https://stationarystdio.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-pencil"/></svg></div>
+                  <div>
+                    <div class="scard-title">Stationary Studio</div>
+                    <span class="tg tg-s" style="font-size:.65rem">Business · Retail</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Stationery and art supplies store — product showcase, online ordering, category navigation, and creative brand-consistent design for a retail audience.</div>
+                <div class="scard-links">
+                  <a href="https://stationarystdio.vercel.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Adarsh Public School -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-building"/></svg></div>
-                <div>
-                  <div class="scard-title">Adarsh Public School</div>
-                  <span class="tg tg-g" style="font-size:.65rem">Institutional · School</span>
+              <div class="scard-img">
+                
+                  <img src="Screenshot 2026-06-06 234831.png"
+                       alt="Adarsh Public School website"
+                       loading="lazy" />
+               
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://adarshpublicschool.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Professional school website with admissions, faculty profiles, academic calendar, news section, and gallery. Built for a K-12 institution with responsive design and accessible markup.</div>
-              <div class="scard-links">
-                <a href="https://adarshpublicschool.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-building"/></svg></div>
+                  <div>
+                    <div class="scard-title">Adarsh Public School</div>
+                    <span class="tg tg-g" style="font-size:.65rem">Institutional · School</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Professional K-12 school website with admissions, faculty profiles, academic calendar, news, and gallery — responsive and accessible.</div>
+                <div class="scard-links">
+                  <a href="https://adarshpublicschool.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Srijan Club -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-palette"/></svg></div>
-                <div>
-                  <div class="scard-title">Srijan Club</div>
-                  <span class="tg tg-s" style="font-size:.65rem">Student Club · Creative</span>
+              <div class="scard-img">
+             
+                  <img src="Screenshot 2026-06-06 234850.png"
+                       alt="Srijan creative arts club website"
+                       loading="lazy" />
+                
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://srijanclub.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Official website for Srijan, a college creative arts club. Event listings, gallery, team profiles, achievement showcases, and registration forms — with a vibrant, youthful design language.</div>
-              <div class="scard-links">
-                <a href="https://srijanclub.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-palette"/></svg></div>
+                  <div>
+                    <div class="scard-title">Srijan Club</div>
+                    <span class="tg tg-s" style="font-size:.65rem">Student Club · Creative</span>
+                  </div>
+                </div>
+                <div class="scard-desc">College creative arts club site — event listings, gallery, team profiles, achievement showcases, and registration forms with vibrant youthful design.</div>
+                <div class="scard-links">
+                  <a href="https://srijanclub.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Street Café -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-coffee"/></svg></div>
-                <div>
-                  <div class="scard-title">Street Café</div>
-                  <span class="tg tg-g" style="font-size:.65rem">F&B · Restaurant</span>
+              <div class="scard-img">
+               
+                  <img src="Screenshot 2026-06-06 234903.png"
+                       alt="Street Café restaurant website"
+                       loading="lazy" />
+                
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://streetcafe1.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Restaurant landing page for a street café with menu showcase, ambiance gallery, location map, and online reservation form. Warm design with food photography-forward layout and smooth scroll effects.</div>
-              <div class="scard-links">
-                <a href="https://streetcafe1.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-coffee"/></svg></div>
+                  <div>
+                    <div class="scard-title">Street Café</div>
+                    <span class="tg tg-g" style="font-size:.65rem">F&amp;B · Restaurant</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Restaurant landing page — menu showcase, ambiance gallery, location map, and online reservation. Food photography-forward layout with smooth scroll effects.</div>
+                <div class="scard-links">
+                  <a href="https://streetcafe1.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- BoostTube -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-play"/></svg></div>
-                <div>
-                  <div class="scard-title">BoostTube</div>
-                  <span class="tg tg-s" style="font-size:.65rem">SaaS · Subscriber Service</span>
+              <div class="scard-img">
+                
+                  <img src="Screenshot 2026-06-06 234930.png"
+                       alt="BoostTube SaaS landing page"
+                       loading="lazy" />
+                
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://boosttubeee.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">YouTube subscriber and engagement service platform. Landing page with pricing tiers, service features, testimonials, and a streamlined sign-up funnel for content creators looking to grow their channels.</div>
-              <div class="scard-links">
-                <a href="https://boosttubeee.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-play"/></svg></div>
+                  <div>
+                    <div class="scard-title">BoostTube</div>
+                    <span class="tg tg-s" style="font-size:.65rem">SaaS · Subscriber Service</span>
+                  </div>
+                </div>
+                <div class="scard-desc">YouTube growth service platform — pricing tiers, feature highlights, testimonials, and streamlined sign-up funnel for content creators.</div>
+                <div class="scard-links">
+                  <a href="https://boosttubeee.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Course Hub Online -->
             <div class="scard anim-up">
-              <div class="scard-top">
-                <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-courses"/></svg> </div>
-                <div>
-                  <div class="scard-title">Course Hub Online</div>
-                  <span class="tg tg-g" style="font-size:.65rem">EdTech · Courses</span>
+              <div class="scard-img">
+               
+                  <img src="Screenshot 2026-06-06 235004.png"
+                       alt="Course Hub Online marketplace"
+                       loading="lazy" />
+               
+                <div class="img-badges" style="top:8px;left:8px">
+                  <span class="img-badge ib-live">● Live</span>
+                </div>
+                <div class="img-ov">
+                  <a href="https://coursehubonline.netlify.app/" target="_blank" rel="noopener" class="ov-btn ov-btn-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> View Site
+                  </a>
                 </div>
               </div>
-              <div class="scard-desc">Online course marketplace with subject-wise catalog, instructor profiles, course previews, and enrollment flow. Built for educational content creators with a clean, accessible interface and student progress tracking.</div>
-              <div class="scard-links">
-                <a href="https://coursehubonline.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
-                  <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
-                </a>
+              <div class="scard-body">
+                <div class="scard-top">
+                  <div class="scard-ico"><svg viewBox="0 0 24 24"><use href="#ico-courses"/></svg></div>
+                  <div>
+                    <div class="scard-title">Course Hub Online</div>
+                    <span class="tg tg-g" style="font-size:.65rem">EdTech · Courses</span>
+                  </div>
+                </div>
+                <div class="scard-desc">Online course marketplace with subject-wise catalog, instructor profiles, course previews, enrollment flow, and student progress tracking.</div>
+                <div class="scard-links">
+                  <a href="https://coursehubonline.netlify.app/" target="_blank" rel="noopener" class="slink slink-live">
+                    <svg viewBox="0 0 24 24"><use href="#ico-ext"/></svg> Live
+                  </a>
+                </div>
               </div>
             </div>
 
           </div>
         </div>
 
-      </div>
-    </div>
+      </div><!-- /wrap -->
+    </div><!-- /projects-section -->
 
     <div class="back-home">
       <a href="index.html">
@@ -903,6 +1200,7 @@
         Back to Home
       </a>
     </div>
+
   </main>
 
   <!-- FOOTER -->
@@ -911,14 +1209,14 @@
       <div class="footer-inner">
         <div class="flogo">Harshit<span class="g">.</span><span class="s">Full Stack Developer</span></div>
         <div class="flinks">
-          <a href="https://github.com/harshitsingh205" target="_blank" class="flink" style="fill:currentColor;stroke:none">
+          <a href="https://github.com/harshitsingh205" target="_blank" class="flink">
             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><use href="#ico-github"/></svg>
           </a>
           <a href="https://linkedin.com/in/harshitsingh205" target="_blank" class="flink">
             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><use href="#ico-linkedin"/></svg>
           </a>
           <a href="mailto:harshitkishoresingh26@gmail.com" class="flink">
-            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#ico-mail"/></svg>
+            <svg viewBox="0 0 24 24"><use href="#ico-mail"/></svg>
           </a>
         </div>
         <div class="fcopy">© 2025 Harshit Singh · All rights reserved</div>
@@ -927,51 +1225,54 @@
   </footer>
 
   <script>
-    /* CURSOR */
-    const cur=document.getElementById('c'),curR=document.getElementById('cr');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-    (function loop(){
-      cur.style.left=mx+'px';cur.style.top=my+'px';
-      rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-      curR.style.left=rx+'px';curR.style.top=ry+'px';
+    /* ── CURSOR ── */
+    const cur = document.getElementById('c'), curR = document.getElementById('cr');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      curR.style.left = rx + 'px'; curR.style.top = ry + 'px';
       requestAnimationFrame(loop);
     })();
-    document.querySelectorAll('a,button,.pcard,.scard').forEach(el=>{
-      el.addEventListener('mouseenter',()=>{cur.style.width='5px';cur.style.height='5px';curR.style.width='56px';curR.style.height='56px'});
-      el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curR.style.width='38px';curR.style.height='38px'});
+    document.querySelectorAll('a, button, .pcard, .scard').forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.style.width = '5px'; cur.style.height = '5px'; curR.style.width = '56px'; curR.style.height = '56px'; });
+      el.addEventListener('mouseleave', () => { cur.style.width = '10px'; cur.style.height = '10px'; curR.style.width = '38px'; curR.style.height = '38px'; });
     });
 
-    /* THEME */
-    const html=document.documentElement,tbtn=document.getElementById('tbtn'),tlbl=document.getElementById('tlbl');
-    function setTheme(t){html.setAttribute('data-theme',t);tlbl.textContent=t==='dark'?'Dark':'Light';localStorage.setItem('hs-t',t)}
-    setTheme(localStorage.getItem('hs-t')||'light');
-    tbtn.addEventListener('click',()=>setTheme(html.getAttribute('data-theme')==='dark'?'light':'dark'));
+    /* ── THEME ── */
+    const html = document.documentElement;
+    const tbtn = document.getElementById('tbtn'), tlbl = document.getElementById('tlbl');
+    function setTheme(t) {
+      html.setAttribute('data-theme', t);
+      tlbl.textContent = t === 'dark' ? 'Dark' : 'Light';
+      localStorage.setItem('hs-t', t);
+    }
+    setTheme(localStorage.getItem('hs-t') || 'light');
+    tbtn.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 
-    /* HAMBURGER */
-    const hbg=document.getElementById('hbg'),mob=document.getElementById('mob');
-    hbg.addEventListener('click',()=>{hbg.classList.toggle('open');mob.classList.toggle('open')});
-    function cm(){hbg.classList.remove('open');mob.classList.remove('open')}
-    document.addEventListener('click',e=>{if(!hbg.contains(e.target)&&!mob.contains(e.target))cm()});
+    /* ── HAMBURGER ── */
+    const hbg = document.getElementById('hbg'), mob = document.getElementById('mob');
+    hbg.addEventListener('click', () => { hbg.classList.toggle('open'); mob.classList.toggle('open'); });
+    function cm() { hbg.classList.remove('open'); mob.classList.remove('open'); }
+    document.addEventListener('click', e => { if (!hbg.contains(e.target) && !mob.contains(e.target)) cm(); });
 
-    /* SCROLL ANIMATIONS */
-    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
-    document.querySelectorAll('.anim-up').forEach(el=>io.observe(el));
+    /* ── SCROLL ANIMATIONS ── */
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in');
+    }), { threshold: .08 });
+    document.querySelectorAll('.anim-up').forEach(el => io.observe(el));
 
-    /* FILTER */
-    const tabs=document.querySelectorAll('.ftab');
-    const sections=document.querySelectorAll('.proj-item');
-    tabs.forEach(tab=>{
-      tab.addEventListener('click',()=>{
-        tabs.forEach(t=>t.classList.remove('active'));
+    /* ── FILTER TABS ── */
+    const tabs = document.querySelectorAll('.ftab');
+    const sections = document.querySelectorAll('.proj-item');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        const cat=tab.dataset.cat;
-        sections.forEach(s=>{
-          if(cat==='all'||s.dataset.cat===cat){
-            s.classList.remove('hidden');
-          } else {
-            s.classList.add('hidden');
-          }
+        const cat = tab.dataset.cat;
+        sections.forEach(s => {
+          s.classList.toggle('hidden', cat !== 'all' && s.dataset.cat !== cat);
         });
       });
     });
